@@ -1,0 +1,47 @@
+# Example workflow - Copy this to your repository's .github/workflows/ directory
+# Rename to git-ai.yml or similar
+
+name: Git AI
+
+on:
+  pull_request:
+    types: [closed]
+  schedule:
+    - cron: "0 0 * * *" # Daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  pr-close:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Run Git AI PR Close
+        uses: git-ai-project/action/pr-close@v1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-url: ${{ github.event.pull_request.html_url }}
+          merge-commit-sha: ${{ github.event.pull_request.merge_commit_sha }}
+          # Uncomment and configure for OTLP export:
+          # OTEL_EXPORTER_OTLP_ENDPOINT: ${{ secrets.OTLP_ENDPOINT }}
+          # OTEL_EXPORTER_OTLP_HEADERS: "Authorization=Bearer ${{ secrets.OTLP_TOKEN }}"
+          # OTEL_SERVICE_NAME: my-service
+
+  daily-metrics:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Run Git AI Daily Metrics
+        uses: git-ai-project/action/daily-metrics@v1
+        with:
+          default-branch: ${{ github.event.repository.default_branch }}
+          # Uncomment and configure for OTLP export:
+          # OTEL_EXPORTER_OTLP_ENDPOINT: ${{ secrets.OTLP_ENDPOINT }}
+          # OTEL_EXPORTER_OTLP_HEADERS: "Authorization=Bearer ${{ secrets.OTLP_TOKEN }}"
+          # OTEL_SERVICE_NAME: my-service
