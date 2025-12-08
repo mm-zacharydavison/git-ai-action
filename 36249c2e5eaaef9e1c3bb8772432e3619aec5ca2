@@ -1,0 +1,29 @@
+daily-metrics/action.yml
+  583115234a4b3a12 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "development:1.0.23",
+  "base_commit_sha": "36249c2e5eaaef9e1c3bb8772432e3619aec5ca2",
+  "prompts": {
+    "583115234a4b3a12": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1075b9a6-4c6c-4880-8751-39f1da97bc1f",
+        "model": "claude-4.5-sonnet-thinking"
+      },
+      "human_author": "Aidan Cunniffe <acunniffe@gmail.com>",
+      "messages": [
+        {
+          "type": "user",
+          "text": "@daily-metrics/action.yml:1-76 replace the default branch check by making this the default for default-branch\n\n\n\n${{ github.event.repository.default_branch }}",
+          "timestamp": "2025-12-08T13:31:35.614Z"
+        }
+      ],
+      "total_additions": 4,
+      "total_deletions": 13,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
