@@ -1,0 +1,32 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "development:1.0.23",
+  "base_commit_sha": "8e8a1acb593d804a3dc92ea3a89690b8d0a48dca",
+  "prompts": {
+    "faed29b74cda493c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "4cc274a5-78bc-45e0-81bb-12c57f7f7e91",
+        "model": "claude-4.5-sonnet-thinking"
+      },
+      "human_author": "Aidan Cunniffe <acunniffe@gmail.com>",
+      "messages": [
+        {
+          "type": "user",
+          "text": "@pr-close/action.yml:1-78 help me debug this workflow \n\nwhat might be wrong? is the repo being deleted? \n\ngit-ai ci github run clones with the correct depth\n\nInstalled git-ai 1.0.23\nSetting up IDE/agent hooks...\nNo compatible IDEs or agent configurations detected. Nothing to install.\nSuccessfully set up IDE/agent hooks\nUpdated /home/runner/.bashrc to include /home/runner/.git-ai/bin in PATH\nRestart your shell or run: source \"/home/runner/.bashrc\"\nClose and reopen your terminal and IDE sessions to use git-ai.\nRun git config --global user.name \"github-actions[bot]\"\nRun export PATH=\"$HOME/.git-ai/bin:$PATH\"\nWorking repository is in /home/runner/work/testing-gitflows-git-ai/testing-gitflows-git-ai/git-ai-ci-clone/.git\nRewriting authorship for 597e75c985bf20b2a894e7db2670d2be60330639 -> 85408136bdc9a1e72fdd2ba5a9f77d2feb6aea76 (squash or rebase-like merge)\nFetching base branch main\nFetched base branch. Fetching authorship history\nFetched authorship history\nRewrote authorship. Pushing authorship...\nPushed authorship. Done.\nRun git fetch origin\nError: An error occurred trying to start process '/usr/bin/bash' with working directory '/home/runner/work/testing-gitflows-git-ai/testing-gitflows-git-ai/git-ai-ci-clone/.git'. No such file or directory\n\n\nI think we should do all the work inside the",
+          "timestamp": "2025-12-08T14:34:23.675Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Looking at the error and the workflow, I can see the issue. The problem is that the `git-ai ci github run` command clones the repository, does its work, and then likely cleans up after itself by removing the clone. By the time the next step runs, the `git-ai-ci-clone` directory no longer exists.\n\nHere's what's happening:\n\n1. **Line 66**: `git-ai ci github run` clones the repo to `git-ai-ci-clone` and processes it\n2. The logs show: \"Working repository is in `/home/runner/work/testing-gitflows-git-ai/testing-gitflows-git-ai/git-ai-ci-clone/.git`\"\n3. After `git-ai ci github run` completes, it cleans up the clone\n4. **Line 70**: The next step tries to use `working-directory: ${{ github.workspace }}/git-ai-ci-clone/.git` but the directory no longer exists\n\n## Solutions:\n\n**Option 1: Uncomment the checkout step and don't rely on git-ai's clone**",
+          "timestamp": "2025-12-08T14:34:41.627Z"
+        }
+      ],
+      "total_additions": 6,
+      "total_deletions": 6,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
