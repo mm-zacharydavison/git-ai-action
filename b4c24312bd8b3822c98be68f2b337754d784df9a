@@ -1,0 +1,32 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "development:1.0.23",
+  "base_commit_sha": "b4c24312bd8b3822c98be68f2b337754d784df9a",
+  "prompts": {
+    "003b4e8989ac3c50": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "735a6c17-5f84-4324-adf6-577c33afa043",
+        "model": "claude-4.5-sonnet-thinking"
+      },
+      "human_author": "Aidan Cunniffe <acunniffe@gmail.com>",
+      "messages": [
+        {
+          "type": "user",
+          "text": "@pr-close/action.yml:1-72 ok just ran it and got \n\n\n\nSetting up IDE/agent hooks...\n\nNo compatible IDEs or agent configurations detected. Nothing to install.\n\nSuccessfully set up IDE/agent hooks\n\nUpdated /home/runner/.bashrc to include /home/runner/.git-ai/bin in PATH\n\nRestart your shell or run: source \"/home/runner/.bashrc\"\n\nClose and reopen your terminal and IDE sessions to use git-ai.\n\nRun git config --global user.name \"github-actions[bot]\"\n\nRun export PATH=\"$HOME/.git-ai/bin:$PATH\"\n\n  export PATH=\"$HOME/.git-ai/bin:$PATH\"\n\n  git-ai ci github run\n\n  git fetch origin\n\n  git-ai-otel export-pr \"https://github.com/acunniffe/testing-gitflows-git-ai/pull/56\" \"https://github.com/acunniffe/testing-gitflows-git-ai\" merged \"4d81ccc865144ff7a1120d9defed526d6f1e5664\"\n\n  shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}\n\n  env:\n\n    GITHUB_TOKEN: ***\n\n    OTEL_EXPORTER_OTLP_ENDPOINT: ***\n\n    OTEL_EXPORTER_OTLP_HEADERS: ***\n\n    OTEL_SERVICE_NAME: git-ai-dashboards\n\nFailed to get GitHub CI context: Git CLI (clone --branch main ***github.com/acunniffe/testing-gitflows-git-ai.git git-ai-ci-clone) failed with exit code 128: fatal: destination path 'git-ai-ci-clone' already exists and is not an empty directory.",
+          "timestamp": "2025-12-08T14:43:25.207Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Looking at the error, the issue is that `git-ai ci github run` is trying to clone the repository into `git-ai-ci-clone`, but that directory already exists from the earlier checkout step. \n\nThe `git-ai ci github run` command needs to be executed from within the checked-out repository directory. Let me fix this:",
+          "timestamp": "2025-12-08T14:43:35.475Z"
+        }
+      ],
+      "total_additions": 1,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
