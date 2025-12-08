@@ -1,0 +1,44 @@
+README.md
+  e6604d624902e80a 1-48,50-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "development:1.0.23",
+  "base_commit_sha": "7724c8c1ea2af9b4a786fbba5b2ada0dcbff591c",
+  "prompts": {
+    "e6604d624902e80a": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "427da8e9-5216-4ab1-8c0c-b8cbbee6c917",
+        "model": "claude-4.5-opus-high-thinking"
+      },
+      "human_author": "Aidan Cunniffe <acunniffe@gmail.com>",
+      "messages": [
+        {
+          "type": "user",
+          "text": "write documentation for using this action. \n\nHere's a working workflow file from a customer\n\n# Example workflow - Copy this to your repository's .github/workflows/ directory\n# Rename to git-ai.yml or similar\n\nname: Git AI Dashboards\n\non:\n  pull_request:\n    types: [closed]\n  schedule:\n    - cron: \"0 0 * * *\" # Daily at midnight UTC\n  workflow_dispatch:\n\njobs:\n  pr-close:\n    if: github.event.pull_request.merged == true\n    runs-on: ubuntu-latest\n    continue-on-error: true\n    permissions:\n      contents: write\n    steps:\n      - name: Run Git AI PR Close\n        uses: git-ai-project/action/pr-close@main\n        with:\n          github-token: ${{ secrets.GITHUB_TOKEN }}\n          pr-url: ${{ github.event.pull_request.html_url }}\n          merge-commit-sha: ${{ github.event.pull_request.merge_commit_sha }}\n          OTEL_EXPORTER_OTLP_ENDPOINT: ${{ secrets.OTEL_EXPORTER_OTLP_ENDPOINT }}\n          OTEL_EXPORTER_OTLP_HEADERS: ${{ secrets.OTEL_EXPORTER_OTLP_HEADERS }}\n          OTEL_SERVICE_NAME: \"git-ai-dashboards\"\n\n  daily-metrics:\n    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'\n    runs-on: ubuntu-latest\n    continue-on-error: true\n    permissions:\n      contents: read\n    steps:\n      - name: Run Git AI Daily Metrics\n        uses: git-ai-project/action/daily-metrics@main\n        with:\n          OTEL_EXPORTER_OTLP_ENDPOINT: ${{ secrets.OTEL_EXPORTER_OTLP_ENDPOINT }}\n          OTEL_EXPORTER_OTLP_HEADERS: ${{ secrets.OTEL_EXPORTER_OTLP_HEADERS }}\n          OTEL_SERVICE_NAME: \"git-ai-dashboards\"",
+          "timestamp": "2025-12-08T14:59:20.714Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Let me read the action files to understand the full capabilities and write comprehensive documentation.",
+          "timestamp": "2025-12-08T14:59:27.033Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Now I have a complete picture. Let me write comprehensive documentation for this action.",
+          "timestamp": "2025-12-08T14:59:37.169Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I've written comprehensive documentation for the Git AI Dashboards action. Here's what the README includes:\n\n**Key sections:**\n\n1. **Overview** - Explains what the action does and its features\n2. **Quick Start** - A complete, ready-to-copy workflow based on the customer's working configuration\n3. **Actions** - Detailed documentation for both sub-actions:\n   - `pr-close` - For analyzing merged PRs\n   - `daily-metrics` - For scheduled aggregate metrics\n4. **Input tables** - All inputs with required/optional status and defaults\n5. **OpenTelemetry Configuration** - Setup guide with examples for popular providers:\n   - Grafana Cloud\n   - Honeycomb\n   - Datadog\n   - New Relic\n6. **Workflow Triggers** - Explains the three trigger types and job conditions\n7. **Best Practices** - Using `continue-on-error` to avoid blocking other workflows\n8. **Troubleshooting** - Common issues and solutions\n\nThe documentation uses the customer's working workflow as the primary example, ensuring users have a proven configuration to start from.",
+          "timestamp": "2025-12-08T15:00:21.320Z"
+        }
+      ],
+      "total_additions": 216,
+      "total_deletions": 1,
+      "accepted_lines": 141,
+      "overriden_lines": 0
+    }
+  }
+}
