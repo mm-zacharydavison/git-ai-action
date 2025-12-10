@@ -5,7 +5,7 @@
 #   Action version: use @v1.0.0 (see https://github.com/acunniffe/git-ai-action/releases)
 #   git-ai version: use git-ai-version input (see https://github.com/acunniffe/git-ai/releases)
 
-name: Git AI
+name: git-ai
 
 on:
   pull_request:
