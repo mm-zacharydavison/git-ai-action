@@ -6,6 +6,14 @@ branding:
   color: "purple"
 
 inputs:
+  git-ai-version:
+    description: "Version of git-ai to install (e.g., 'v1.0.23'). Defaults to latest release."
+    required: false
+    default: "latest"
+  git-ai-repo:
+    description: "GitHub repo to download git-ai from (owner/repo format)."
+    required: false
+    default: "acunniffe/git-ai"
   repo-url:
     description: "Repository URL"
     required: false
@@ -36,8 +44,24 @@ runs:
     - name: Install git-ai
       shell: bash
       run: |
-        curl -fsSL https://raw.githubusercontent.com/acunniffe/git-ai/main/install.sh | bash
+        VERSION="${{ inputs.git-ai-version }}"
+        REPO="${{ inputs.git-ai-repo }}"
+        if [ "$VERSION" = "latest" ]; then
+          VERSION=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" | jq -r '.tag_name')
+        fi
+
+        INSTALL_URL="https://github.com/${REPO}/releases/download/${VERSION}/install.sh"
+        HTTP_STATUS=$(curl -fsSL -w "%{http_code}" -o /tmp/install.sh "$INSTALL_URL" 2>/dev/null || echo "000")
+
+        if [ "$HTTP_STATUS" != "200" ]; then
+          echo "Error: Failed to download install.sh for version ${VERSION}"
+          exit 1
+        fi
+
+        bash /tmp/install.sh
+        rm /tmp/install.sh
         echo "$HOME/.git-ai/bin" >> $GITHUB_PATH
+
         curl -fsSL https://git-ai-otel.s3.us-east-2.amazonaws.com/git-ai-otel-latest.tar.gz -o git-ai-otel.tar.gz
         tar -xzf git-ai-otel.tar.gz
         chmod +x git-ai-otel
