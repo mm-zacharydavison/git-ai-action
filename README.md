@@ -61,7 +61,6 @@ Runs when a pull request is merged. Analyzes the PR for AI-assisted contribution
 
 | Input | Required | Default | Description |
 |-------|----------|---------|-------------|
-| `github-token` | No | `${{ github.token }}` | GitHub token for API access |
 | `pr-url` | **Yes** | - | The pull request URL (use `${{ github.event.pull_request.html_url }}`) |
 | `merge-commit-sha` | **Yes** | - | The merge commit SHA (use `${{ github.event.pull_request.merge_commit_sha }}`) |
 | `repo-url` | No | Current repository | Repository URL |
