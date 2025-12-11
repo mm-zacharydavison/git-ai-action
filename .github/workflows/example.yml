@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Run Git AI PR Close
-        uses: git-ai-project/action/pr-close@v1.0.0
+        uses: git-ai-project/action/pr-close@v1
         continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Run Git AI Daily Metrics
-        uses: git-ai-project/action/daily-metrics@v1.0.0
+        uses: git-ai-project/action/daily-metrics@v1
         with:
           git-ai-version: "v1.0.23" # Pin to a specific version for reproducibility
           default-branch: ${{ github.event.repository.default_branch }}
