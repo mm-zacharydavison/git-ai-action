@@ -26,7 +26,6 @@ jobs:
         uses: git-ai-project/action/pr-close@v1
         continue-on-error: true
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-url: ${{ github.event.pull_request.html_url }}
           merge-commit-sha: ${{ github.event.pull_request.merge_commit_sha }}
           # Uncomment and configure for OTLP export:
